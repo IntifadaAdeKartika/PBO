@@ -1,9 +1,8 @@
 import java.util.Scanner;
 
 public class ZakatMaalCalculator {
-
-    private static final double GOLD_PRICE_PER_GRAM =  1392244.7; // Misal harga emas per gram
-    private static final double SILVER_PRICE_PER_GRAM = 14229.3; // Misal harga perak per gram
+    private static final double GOLD_PRICE_PER_GRAM = 1000000.0; // Misal harga emas per gram
+    private static final double SILVER_PRICE_PER_GRAM = 20000.0; // Misal harga perak per gram
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -53,35 +52,22 @@ public class ZakatMaalCalculator {
             }
 
             Muzaki muzaki = new Muzaki(namaMuzaki, harta, jenisHarta);
+            double nisab = (choice == 1 || choice == 2) ? 85000000.0 : 11900000.0;
+            double zakat = muzaki.calculateZakat(nisab);
 
-            // Menentukan nisab berdasarkan jenis harta
-            double nisab = 0;
-            double zakat = 0;
+            if (zakat > 0) {
+                System.out.printf("Jumlah zakat yang harus dibayarkan oleh %s (jenis harta: %s) adalah: %.2f%n",
+                        muzaki.getNama(), muzaki.getJenisHarta(), zakat);
 
-            switch (choice) {
-                case 1: // Uang Tunai
-                    nisab = 118340799.5; // Nisab untuk uang tunai setara dengan 85 gram emas
-                    zakat = muzaki.getHarta() * 0.025; // Zakat 2.5%
-                    break;
-                case 2: // Emas
-                    nisab = 118340799.5; // Nisab untuk emas 85 gram dalam rupiah
-                    zakat = muzaki.getHarta() * 0.025; // Zakat 2.5%
-                    break;
-                case 3: // Perak
-                    nisab = 8466433.5; // Nisab untuk perak 595 gram dalam rupiah
-                    zakat = muzaki.getHarta() * 0.025; // Zakat 2.5%
-                    break;
-            }
-
-            if (muzaki.getHarta() >= nisab) {
-                System.out.printf("Jumlah zakat yang harus dibayarkan oleh %s (jenis harta: %s) adalah: %.2f%n", 
-                                  muzaki.getNama(), muzaki.getJenisHarta(), zakat);
+                Penerima penerima = new Penerima("Yayasan Zakat", "Jl. Berkah No.1", 0);
+                penerima.addZakat(zakat);
+                penerima.displayPenerimaInfo();
             } else {
                 System.out.println("Jumlah harta tidak mencapai nisab, tidak perlu membayar zakat.");
             }
 
             System.out.print("Apakah Anda ingin menghitung zakat lagi? (ya/tidak): ");
-            String response = scanner.nextLine(); // Menggunakan nextLine untuk membaca seluruh baris
+            String response = scanner.nextLine(); 
             continueCalculating = response.equalsIgnoreCase("ya");
         }
 
