@@ -1,7 +1,7 @@
 public class Muzaki {
     private String nama;
     private double harta;
-    private String jenisHarta; // 1.Uang Tunai 2.Emas 3.Perak
+    private String jenisHarta; // 1 = Uang Tunai 2 = Emas 3 = Perak
 
     public Muzaki(String nama, double harta, String jenisHarta) {
         this.nama = nama;
