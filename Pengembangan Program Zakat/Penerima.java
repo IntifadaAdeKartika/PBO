@@ -34,4 +34,14 @@ public class Penerima {
     public void setJumlahZakatDiterima(double jumlahZakatDiterima) {
         this.jumlahZakatDiterima = jumlahZakatDiterima;
     }
+
+    // Metode void tanpa parameter untuk menampilkan informasi penerima zakat
+    public void displayPenerimaInfo() {
+        System.out.printf("Nama Penerima: %s\nAlamat: %s\nJumlah Zakat Diterima: %.2f\n", nama, alamat, jumlahZakatDiterima);
+    }
+
+    // Metode void dengan parameter untuk menambahkan zakat yang diterima
+    public void addZakat(double amount) {
+        jumlahZakatDiterima += amount;
+    }
 }
